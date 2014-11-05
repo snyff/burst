@@ -169,10 +169,16 @@ def interact(local_dict=None):
 
   # Parse arguments
   try:
-    opts = getopt.getopt(sys.argv[1:], "s:bhlvri")
+    opts = getopt.getopt(sys.argv[1:], "s:a:d:bhlvri")
     for opt, param in opts[0]:
       if opt == "-h":
         _usage()
+      elif opt == "-d":
+        burst.session.delete(param)
+        sys.exit(0)
+      elif opt == "-a":
+        burst.session.archive(param)
+        sys.exit(0)
       elif opt == "-s":
         burst.session.user_session.name = param
       elif opt == "-l":

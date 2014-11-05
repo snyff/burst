@@ -137,6 +137,16 @@ def archive(name=None):
   f.close()
   print "Archived under", full_path
 
+def delete(name=None):
+  if not name:
+    name = user_session.name
+  if os.path.isdir(os.path.join(SESSION_DIR, name)):
+    for root, dirs, files in os.walk(os.path.join(SESSION_DIR, name)):
+      for filename in files:
+        os.remove(os.path.join(SESSION_DIR, name, filename))
+      os.rmdir(os.path.join(SESSION_DIR, name))
+
+
 def switch_session(name="default"):
   """ Switch session.
   The current session will be saved (if not default)
